@@ -13,6 +13,12 @@
   }
 }
 
+.options {
+  @include media-mobile {
+    margin: 15px 0;
+  }
+}
+
 .item-list {
   list-style: none;
 }

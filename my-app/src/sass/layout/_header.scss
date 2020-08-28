@@ -1,8 +1,5 @@
 .header {
-  margin-bottom: 15px;
-  @include media-mobile {
-    margin-bottom: 0;
-  }
+  margin: 15px 0;
 }
 
 .header__inner {
@@ -21,6 +18,7 @@
 .heading {
   font-size: 5rem;
   @extend %logo-font;
+  text-shadow: 0 0px 5px black;
   @include media-mobile {
     margin: 0 auto;
   }
@@ -45,4 +43,10 @@
 
 .category {
   font-size: 2rem;
+}
+
+.underline {
+  color: #2a9494;
+  text-shadow: 0 0px 2px black;
+  border-bottom: 2px solid #2a9494;
 }

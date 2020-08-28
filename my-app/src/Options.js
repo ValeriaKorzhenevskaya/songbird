@@ -1,20 +1,59 @@
 import React from 'react';
+import correctAudio from './audio/correct.mp3';
+import incorrectAudio from './audio/incorrect.mp3';
+import classNames from "classnames";
 
-function Options() {
-  return (
-    <div className="options">
-      <div className="wrapper">
-        <ul className="item-list">
-          <li className="possible-answer"><span className="checkbox correctly"></span>Синица</li>
-          <li className="possible-answer"><span className="checkbox"></span>Кукушка</li>
-          <li className="possible-answer"><span className="checkbox incorrectly"></span>Журавль</li>
-          <li className="possible-answer"><span className="checkbox"></span>Ласточка</li>
-          <li className="possible-answer"><span className="checkbox"></span>Ворон</li>
-          <li className="possible-answer"><span className="checkbox"></span>Сойка</li>
-        </ul>
+class Options extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+    this.correctAudio = new Audio(correctAudio);
+    this.incorrectAudio = new Audio(incorrectAudio);
+  }
+
+  handleClick(answer, e) {
+    this.props.updateActiveBird(answer)
+    if (this.props.selectedBird === answer) {
+      // e.currentTarget.firstChild.classList.add('correctly');
+      this.correctAudio.play();
+      this.props.isCorrectOnChange(true)
+      const arr = this.props.checkboxs.filter((item) => item === false);
+      const mark = this.props.score + arr.length;
+      this.props.updateScore(mark);
+    } else {
+      // e.currentTarget.firstChild.classList.add('incorrectly');
+      this.incorrectAudio.play();
+    }
+  }
+  
+  render() {
+    const answers = this.props.answers;
+    const listAnswers = answers.map((answer) => 
+      <li onClick={(e) => {this.handleClick(answer, e)}} className="possible-answer" key={answer.id.toString()}>
+        <span className={classNames(
+            "checkbox",
+            {
+              correctly:
+              answer === this.props.selectedBird && this.props.checkboxs[answer.id - 1]
+            },
+            {
+              incorrectly:
+              answer !== this.props.selectedBird && this.props.checkboxs[answer.id - 1]
+            }
+          )}></span>
+        {answer.name}
+      </li>
+    );
+    return (
+      <div className="options">
+        <div className="wrapper">
+          <ul className="item-list">
+            {listAnswers}
+          </ul>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Options;

@@ -20,6 +20,9 @@
     width: 200px;
     border-radius: 10px;
   }
+  @include media-mobile {
+    margin: 0 auto;
+  }
 }
 
 .current-bird__info {
