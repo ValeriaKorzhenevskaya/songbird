@@ -14,14 +14,12 @@ class Options extends React.Component {
   handleClick(answer, e) {
     this.props.updateActiveBird(answer)
     if (this.props.selectedBird === answer) {
-      // e.currentTarget.firstChild.classList.add('correctly');
       this.correctAudio.play();
       this.props.isCorrectOnChange(true)
       const arr = this.props.checkboxs.filter((item) => item === false);
       const mark = this.props.score + arr.length;
       this.props.updateScore(mark);
     } else {
-      // e.currentTarget.firstChild.classList.add('incorrectly');
       this.incorrectAudio.play();
     }
   }

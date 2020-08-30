@@ -44,7 +44,7 @@ class Game extends React.Component {
 
   updateActiveBird(value) {
     const {checkboxs} = this.state;
-    if(!this.state.nextLevel){
+    if(!this.state.isCorrect){
       checkboxs[value.id - 1] = true;
     }
     this.setState({ activeBird: value, checkboxs: checkboxs });
